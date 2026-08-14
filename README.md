@@ -1,13 +1,18 @@
 下载塞壬唱片官网的全部歌曲，包括歌曲、封面、歌词信息
 
+Rust 实现，增量可续传：进度记录在本地 SQLite（`database.sqlite`），重复运行会跳过已完成的部分。
+
 ## 使用说明
 
-### 1. 安装 Node.js
+### 1. 安装依赖
 
-### 2. 安装依赖
+- [Rust](https://rustup.rs/)（编译运行）
+- [ffmpeg](https://ffmpeg.org/)（WAV → FLAC 转码需要，本机可执行文件在 PATH 中即可）
+
+### 2. 构建并运行
 
 ```bash
-npm install
+cargo run
 ```
 
 ### 3. 修改配置（可选项）
@@ -16,8 +21,7 @@ npm install
 
 - 由于歌曲名中包含一些 windows 不支持的字符，所以会默认替换为下划线，如果想要替换为其它字符，可以在 `.env` 修改 `REPLACE_CHAR` 变量
 
-### 4. 运行
+### 说明
 
-```bash
-npm run start
-```
+- 首次运行会自动建库（`database.sqlite`）；删除该文件即从零重跑。
+- 已下载的 FLAC/MP3 会自动写入标题、艺人、专辑、音轨号、简介（comment）、歌词和封面等标签。

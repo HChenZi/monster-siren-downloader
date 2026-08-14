@@ -1,0 +1,21 @@
+[package]
+name = "monster-siren-downloader"
+version = "0.1.0"
+edition = "2021"
+description = "downloading songs from monster siren"
+license = "MIT"
+
+[dependencies]
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "fs", "time"] }
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "stream", "json"] }
+futures-util = "0.3"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rusqlite = { version = "0.32", features = ["bundled"] }
+metaflac = "0.2"
+id3 = "1"
+anyhow = "1"
+dotenvy = "0.15"
+
+[profile.release]
+strip = true
