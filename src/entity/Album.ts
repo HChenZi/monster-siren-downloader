@@ -25,6 +25,18 @@ export class Album {
   @Column()
   artistes: string;
 
+  @Column({ nullable: true })
+  intro: string;
+
+  @Column({ nullable: true })
+  belong: string;
+
+  @Column({ nullable: true })
+  coverDeUrl: string;
+
+  @Column({ default: false })
+  isCoverDeDownloaded: boolean;
+
   @CreateDateColumn()
   createdAt: Date;
 

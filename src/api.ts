@@ -16,3 +16,8 @@ export const getSongDetail = async (cid: number) => {
   const res: any = await (await fetch(`${BASE_URL}/song/${cid}`)).json();
   return res.data;
 };
+
+export const getAlbumDetail = async (cid: number) => {
+  const res: any = await (await fetch(`${BASE_URL}/album/${cid}/detail`)).json();
+  return res.data;
+};

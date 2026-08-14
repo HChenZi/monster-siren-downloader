@@ -26,8 +26,17 @@ export class Song {
   @Column({ default: false })
   isDownloaded: boolean;
 
+  @Column({ nullable: true })
+  filePath: string;
+
+  @Column({ default: false })
+  isMetadataFilled: boolean;
+
   @Column()
   artistes: string;
+
+  @Column({ nullable: true })
+  trackNumber: number;
 
   @CreateDateColumn()
   createdAt: Date;
