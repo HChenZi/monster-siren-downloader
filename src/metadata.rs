@@ -111,8 +111,12 @@ fn cover_mime(data: &[u8]) -> &'static str {
 }
 
 fn ensure_mp3_tags(input: &MetadataInput) -> Result<()> {
-    let existing = id3::Tag::read_from_path(input.file_path)
-        .with_context(|| format!("读取 MP3 失败：{}", input.file_path.display()))?;
+    // 裸 MP3（无任何 ID3 标签）读取会报 NoTag，no_tag_ok 将其映射为 None，等价于空标签
+    let existing = match id3::no_tag_ok(id3::Tag::read_from_path(input.file_path)) {
+        Ok(Some(tag)) => tag,
+        Ok(None) => id3::Tag::new(),
+        Err(e) => return Err(e).with_context(|| format!("读取 MP3 失败：{}", input.file_path.display())),
+    };
     // 已有 title/artist/album/封面则跳过（与旧版 music-metadata 检查逻辑一致）
     let has_all = existing.title().is_some()
         && existing.artist().is_some()
